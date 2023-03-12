@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
-const reactionSchema = require('./Reaction')
+const reactionSchema = require('./Reaction');
+const { formatDate } = require('../utils/dateFormatter');
 
 // Schema to create Student model
 const thoughtSchema = new Schema(
@@ -13,6 +14,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: formatDate,
     },
     username: {
       type: String,
@@ -22,15 +24,12 @@ const thoughtSchema = new Schema(
   },
   {
     toJSON: {
+      getters: true,
       virtuals: true,
     },
     // id: false,
   }
 );
-
-thoughtSchema.virtual('createdAt').get(function () {
-  return this.createdAt.toLocaleDateString("en-US");
-});
 
 thoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
