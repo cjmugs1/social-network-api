@@ -1,3 +1,3 @@
-const formatDate = (date) => {return date.toLocaleDateString("en-US")}
+function formatDate(date) {return date.toLocaleDateString("en-US")}
 
 module.exports = formatDate;

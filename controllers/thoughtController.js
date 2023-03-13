@@ -20,7 +20,7 @@ module.exports = {
   },
   // Create a thought and add it to the associated user
   createThought(req, res) {
-    Thought.create( req.body, { runValidators: true, new: true })
+    Thought.create(req.body)
       .then((thought) => {
         User.findOneAndUpdate(
           { username: thought.username },

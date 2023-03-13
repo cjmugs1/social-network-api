@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction');
-const { formatDate } = require('../utils/dateFormatter');
+const formatDate = require('../utils/dateFormatter');
 
-// Schema to create Student model
+// Schema to create Thought model
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -27,7 +27,7 @@ const thoughtSchema = new Schema(
       getters: true,
       virtuals: true,
     },
-    // id: false,
+    id: false,
   }
 );
 
