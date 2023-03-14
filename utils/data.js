@@ -1,5 +1,8 @@
+const connection = require('../config/connection');
 const { User, Thought } = require('../models');
 const { faker } = require('@faker-js/faker');
+
+connection.on('error', (err) => err);
 
 const createUser = async (numberOfUsers) => {
   const users = [];
@@ -12,62 +15,32 @@ const createUser = async (numberOfUsers) => {
   return users;
 }
 
-
 const createThought = async (users, numberOfThoughts) => {
   for (let i=0; i < numberOfThoughts; i++){
-    let userWhoIsPosting = faker.datatype.number({ max: users.length });
-    Thought.create(
-      { 
-        thoughtText: faker.lorem.text(),
-        username: users[userWhoIsPosting].username
-      }, 
-      { runValidators: true, new: true })
-    .then((thought) => {
-      User.findOneAndUpdate(
-        { username: thought.username },
-        { $push: { thoughts: thought._id } },
+    // randomly pick a user by index# to be the poster
+    let userWhoIsPosting = faker.datatype.number({ max: users.length-1 });
+    // randomly generate a thought text, and pull the username from the userWhoIsPosting
+    let thought = { 
+      thoughtText: faker.lorem.sentence(5),
+      username: users[userWhoIsPosting].username
+    }
+    // create the thought
+    await Thought.collection.insertOne(thought)
+    // then, pass the thought object to the find and update user function
+    .then(async (thought) => {
+      // process the objectID we are getting from the thought object to be useable, so that it can be added to the users thoughts array.
+      let thoughtId = JSON.stringify(thought.insertedId);
+      let rawId = thoughtId.split("\"")
+      // find the userWhoIsPosting, push the thought ID into their thoughts array.
+      await User.collection.findOneAndUpdate(
+        { username: users[userWhoIsPosting].username },
+        { $push: { thoughts: rawId[1] } },
         { runValidators: true, new: true }
       )
     })
   }
 }
 
-
-// const createThought = async (users) => {
-//   const thoughts = [];
-//   for (let i=0; i < users.length; i++) {
-//     // let numberOfThoughts = faker.datatype.number({ max: 3 })
-//     for (let t=0; t < faker.datatype.number({ max: 3 }); t++) {
-//       thoughts.push({
-//         // thoughtText: faker.lorem.text({ length: { min: 1, max: 280 } }),
-//         thoughtText: faker.lorem.text(),
-//         username: users[i].username,
-//       })
-//   }};
-//   return thoughts;
-// }
-
-
-// Get a random item given an array
-// const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-// // Gets a random full name
-// const getRandomName = () =>
-//   `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
-
-// // Function to generate random assignments that we can add to student object.
-// const getRandomAssignments = (int) => {
-//   const results = [];
-//   for (let i = 0; i < int; i++) {
-//     results.push({
-//       assignmentName: getRandomArrItem(appDescriptions),
-//       score: Math.floor(Math.random() * (99 - 70 + 1) + 70),
-//     });
-//   }
-//   return results;
-// };
-
-// Export the functions for use in seed.js
 module.exports = { createUser, createThought };
 
 
