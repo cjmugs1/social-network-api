@@ -4,10 +4,6 @@ const formatDate = require('../utils/dateFormatter');
 // Schema to create a reaction model. we dont need to create a model, just need to use the schema for validation of reactions.
 const reactionSchema = new Schema(
   {
-    reactionId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
     reactionBody: {
       type: String,
       required: true,
@@ -28,7 +24,7 @@ const reactionSchema = new Schema(
     toJSON: {
       getters: true,
     },
-    // id: false,
+    id: false,
   }
 );
 

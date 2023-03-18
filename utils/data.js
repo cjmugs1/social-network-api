@@ -2,11 +2,14 @@ const connection = require('../config/connection');
 const { User, Thought } = require('../models');
 const { faker } = require('@faker-js/faker');
 
+// need to connect to the mongoDB in order to perform the createThought function, which is editing the DB.
 connection.on('error', (err) => err);
 
+// we do not bother to edit the mongoDB directly with this function, we just want to create an array of users and send it over to the seeds.js, which will handle adding the users to the DB. this way, we can use the array of users later in the create thought function.
 const createUser = async (numberOfUsers) => {
   const users = [];
   for (let i=0; i < numberOfUsers; i++ ){
+    // generate random user using faker.js
     users.push({
       username: faker.internet.userName(),
       email: faker.internet.email()

@@ -20,8 +20,8 @@ module.exports = {
   },
   // Create a user
   createUser(req, res) {
-    User.create( req.body, { runValidators: true, new: true })
-      .then((course) => res.json(course))
+    User.create(req.body)
+      .then((user) => res.json(user))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);

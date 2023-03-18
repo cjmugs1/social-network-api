@@ -9,7 +9,7 @@ Using MongoDB, Mongoose, and Express to create a social network where users can 
 *To see a video walk-through of someone using this application, click the video-tutorial link below.*
 <br/><br/>
 ## Application Walk-Through Video
-
+![Google Drive Video Link](https://drive.google.com/file/d/1QXjYOPi4-QtoE2662MAvjL3MudRTLmh_/view?usp=share_link)
 <br/><br/>
 ## Challenge Description | User Story
 
@@ -29,5 +29,4 @@ THEN I am able to successfully create, update, and delete users and thoughts in 
 WHEN I test API POST and DELETE routes in Insomnia  
 THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list.  
 <br/>
-## API response for get all users:
-![]()
+
