@@ -9,7 +9,7 @@ Using MongoDB, Mongoose, and Express to create a social network where users can 
 *To see a video walk-through of someone using this application, click the video-tutorial link below.*
 <br/><br/>
 ## Application Walk-Through Video
-![Google Drive Video Link](https://drive.google.com/file/d/1QXjYOPi4-QtoE2662MAvjL3MudRTLmh_/view?usp=share_link)
+[Google Drive Video Link](https://drive.google.com/file/d/1QXjYOPi4-QtoE2662MAvjL3MudRTLmh_/view?usp=share_link)
 <br/><br/>
 ## Challenge Description | User Story
 
